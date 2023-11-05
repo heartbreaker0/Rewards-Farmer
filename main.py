@@ -4,6 +4,7 @@ import logging
 import logging.handlers as handlers
 import random
 import sys
+import subprocess
 from pathlib import Path
 
 from src import Browser, DailySet, Login, MorePromotions, PunchCards, Searches
@@ -24,6 +25,13 @@ def main():
             executeBot(currentAccount, notifier, args)
         except Exception as e:
             logging.exception(f"{e.__class__.__name__}: {e}")
+    cmd = "TASKKILL /F /IM chrome.exe /T"
+    result = subprocess.run(cmd, shell=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    # 输出命令的标准输出和标准错误
+    print("stdout：")
+    print(result.stdout)
+    print("stderr：")
+    print(result.stderr)
 
 
 def setupLogging():
